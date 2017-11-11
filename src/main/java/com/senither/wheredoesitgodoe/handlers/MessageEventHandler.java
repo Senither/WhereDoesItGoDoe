@@ -74,7 +74,7 @@ public class MessageEventHandler extends ListenerAdapter {
             try {
                 List<String> redirects = URLRedirect.get(url);
                 if (redirects.size() <= 1) {
-                    return;
+                    continue;
                 }
 
                 List<String> links = new ArrayList<>();
