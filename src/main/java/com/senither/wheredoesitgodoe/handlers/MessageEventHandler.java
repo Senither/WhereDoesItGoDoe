@@ -2,6 +2,7 @@ package com.senither.wheredoesitgodoe.handlers;
 
 import com.senither.wheredoesitgodoe.WhereDoesItGoDoe;
 import com.senither.wheredoesitgodoe.utils.URLRedirect;
+import com.senither.wheredoesitgodoe.utils.URLTrimmer;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.MessageUpdateEvent;
@@ -52,6 +53,9 @@ public class MessageEventHandler extends ListenerAdapter {
 
         Set<String> urls = new HashSet<>();
         for (String word : message.getContent().split(" ")) {
+            word = URLTrimmer.trim(word);
+
+            if (word.length() == 0) continue;
             if (URL_REGEX.matcher(word).find()) {
                 // Skipping Discord invite links, they should always be safe anyway.
                 if (word.startsWith("https://discord.gg")) {
