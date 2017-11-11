@@ -1,6 +1,7 @@
 package com.senither.wheredoesitgodoe.handlers;
 
 import com.senither.wheredoesitgodoe.WhereDoesItGoDoe;
+import com.senither.wheredoesitgodoe.utils.SendMessageHandler;
 import com.senither.wheredoesitgodoe.utils.URLRedirect;
 import com.senither.wheredoesitgodoe.utils.URLTrimmer;
 import net.dv8tion.jda.core.entities.Message;
@@ -86,12 +87,12 @@ public class MessageEventHandler extends ListenerAdapter {
                     }
                 }
 
-                message.getChannel().sendMessage(String.join("\n", links)).queue();
+                SendMessageHandler.sendSuccess(message, String.join("\n", links)).queue();
             } catch (UnknownHostException ex) {
-                message.getChannel().sendMessage(String.format(
+                SendMessageHandler.sendFailure(message, String.format(
                         "<%s> linked by %s doesn't actually go anywhere D:",
-                        url, message.getAuthor().getAsMention())
-                ).queue();
+                        url, message.getAuthor().getAsMention()
+                )).queue();
             } catch (IOException e) {
                 e.printStackTrace();
             }
